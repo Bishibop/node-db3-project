@@ -21,7 +21,7 @@ async function findSteps(id) {
 }
 
 async function add(scheme) {
-  const ids = await db('schemes').insert(scheme)
+  const ids = await db('schemes').insert(scheme);
   return findById(ids[0]);
 }
 
@@ -40,11 +40,22 @@ async function remove(id) {
   }
 }
 
+// STRETCH
+async function findStepById(id) {
+  return db('steps').where({id: id}).first();
+}
+
+async function addStep(step, scheme_id) {
+  const ids = await db('steps').insert({...step, scheme_id: scheme_id});
+  return findStepById(ids[0]);
+}
+
 module.exports = {
   find,
   findById,
   findSteps,
   add,
   update,
-  remove
+  remove,
+  addStep
 }
